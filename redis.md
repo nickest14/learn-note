@@ -1,29 +1,29 @@
 # Redis Note
 <br>
 
-## Redis 筆記
+## Redis 筆記
 #### Reference [Triton Redis slide](https://github.com/TritonHo/slides/blob/master/Taipei%202019-06%20talk/redis-2019.pdf?fbclid=IwAR0e2eyuy4kFkYIwGAZEITK3kyirEKbHMvKSldpPPLrm4GB0pAbR4Lv2nRg)
 
 **吃飯定理:**
-- 便宜, 好吃, 不用排隊 正常餐廳只能滿足其中兩項
-- 同時滿足三項者, 最終一定虧本倒閉
+- 便宜, 好吃, 不用排隊 正常餐廳只能滿足其中兩項
+- 同時滿足三項者, 最終一定虧本倒閉
 
-**Redis為單線程**
+**Redis為單線程**
 - Perdidtence
-  * 在當機後不會引發資料流失
+  * 在當機後不會引發資料流失
 - Low latency
   * 資料庫能用極短時間完成單一工作
--  以上兩者最多只能要一個
--  Redis 是追求 Low latency, 想單用redis zero data loss, <font color="#ff0000">impossible</font>
-#### Redis 的預設, 是每一萬個 write 才會寫入 hardisk , 若 redis 當機,一定會有 data loss 的  
-- 使用 Redis, 用作caching, 資料同時存放於主資料庫
-- 儲存沒了也死不了的 Hot Data
+- 以上兩者最多只能要一個
+- Redis 是追求 Low latency, 想單用redis zero data loss, <font color="#ff0000">impossible</font>
+#### Redis 的預設, 是每一萬個 write 才會寫入 hardisk , 若 redis 當機,一定會有 data loss 的  
+- 使用 Redis, 用作caching, 資料同時存放於主資料庫
+- 儲存沒了也死不了的 Hot Data
 
 **Single Key Consistency** (Redis cluster)
-- 不同的keyvalue 會放到不同的redis機器
-  * 除非只跑single node
-- 要使用樂觀鎖時, 無可避免要用上Hash
-  * Data 來存資料
+- 不同的keyvalue 會放到不同的redis機器
+  * 除非只跑single node
+- 要使用樂觀鎖時, 無可避免要用上Hash
+  * Data 來存資料
   * LastUpdate TS 來存最後改動時間
 
 **Cache 常犯錯誤**
@@ -60,24 +60,24 @@
 **Anti-pattern: Barrier**
 - 用在 Redis 會害你失掉system robustness
 
-**Barrier vs lock**
-- 雖然兩者都適用SETNX, 目的完全不同
+**Barrier vs lock**
+- 雖然兩者都適用SETNX, 目的完全不同
 - SETNX 回答0時
   - Barrier是直接return
   - Lock 是 sleeping再重試
 - SETNX 的 TTL
-  - Barrier是長時間的(資料更新的隔距)
+  - Barrier是長時間的(資料更新的隔距)
   - Lock 是短時間的 (critical zone的最大執行時間)
 
-**Ratelimiting**
-- Nginx 的 ratelimiting 是以API為單位的, 對一般系統其實很夠用了
-- 當量級到C50k, redis系統很大機率會陣亡, 可以善用 local buffering, 減輕redis工作量, 若是application server 拿不到資料, 便乾脆拒絕所有同類request 1s
+**Ratelimiting**
+- Nginx 的 ratelimiting 是以API為單位的, 對一般系統其實很夠用了
+- 當量級到C50k, redis系統很大機率會陣亡, 可以善用 local buffering, 減輕redis工作量, 若是application server 拿不到資料, 便乾脆拒絕所有同類request 1s
 
-**data snapshotting**
-- 一個持續改動中的排行榜, 沒有snapshotting, 剛好第10名的物品變第11, 去拿page2的資料, 就會看到重複的資料
+**data snapshotting**
+- 一個持續改動中的排行榜, 沒有snapshotting, 剛好第10名的物品變第11, 去拿page2的資料, 就會看到重複的資料
 - <font color="#ff0000">Snapshotting with redis V1</font>
-  - 建立crontab, 每一分從資料庫建立新的snapshot, 丟到redis中, ex: DATAxxx-20190710:1200
+  - 建立crontab, 每一分從資料庫建立新的snapshot, 丟到redis中, ex: DATAxxx-20190710:1200
 - <font color="#ff0000">Snapshotting with redis V2</font>
-  - 若資料長期沒有更動, V1只會建立大量重複的snapshots, 如果一份snapshots 跟之前相同, 他只需把該ts存起來, 而不用存相同的資料
-- snapshot 是永遠不會改動的資料, 其localcache TTL 應跟 Redis 相同
+  - 若資料長期沒有更動, V1只會建立大量重複的snapshots, 如果一份snapshots 跟之前相同, 他只需把該ts存起來, 而不用存相同的資料
+- snapshot 是永遠不會改動的資料, 其localcache TTL 應跟 Redis 相同
 
