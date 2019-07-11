@@ -9,7 +9,7 @@
 - 同時滿足三項者, 最終一定虧本倒閉
 
 **Redis為單線程**
-- Perdidtence
+- Persistence
   * 在當機後不會引發資料流失
 - Low latency
   * 資料庫能用極短時間完成單一工作
