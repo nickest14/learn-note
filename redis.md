@@ -14,7 +14,7 @@
 - Low latency
   * 資料庫能用極短時間完成單一工作
 - 以上兩者最多只能要一個
-- Redis 是追求 Low latency, 想單用redis zero data loss, <font color="#ff0000">impossible</font>
+- Redis 是追求 Low latency, 想單用redis zero data loss, <font color=#ff0000> impossible </font>
 #### Redis 的預設, 是每一萬個 write 才會寫入 hardisk , 若 redis 當機,一定會有 data loss 的  
 - 使用 Redis, 用作caching, 資料同時存放於主資料庫
 - 儲存沒了也死不了的 Hot Data
