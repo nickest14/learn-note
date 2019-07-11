@@ -26,39 +26,39 @@
   * Data 來存資料
   * LastUpdate TS 來存最後改動時間
 
-**Cache 常犯錯誤**
-- 只用local cache
-  * 指 Application Server(AS)上的local memory
-  * 缺點: 改動沒辦法反映到所有的伺服器上 & 新開的AS, 其local cache 是全空的
-  * 指 Application Server(AS)上的local memory
-- 只用[一般]的caching
-  * 1. 從Redis 拿資料, 如有則直接回傳
+**Cache 常犯錯誤**
+- 只用local cache
+  * 指 Application Server(AS)上的local memory
+  * 缺點: 改動沒辦法反映到所有的伺服器上 & 新開的AS, 其local cache 是全空的
+  * 指 Application Server(AS)上的local memory
+- 只用[一般]的caching
+  * 1. 從Redis 拿資料, 如有則直接回傳
   * 2. 從主資料拿資料X
-  * 3. 把資料x 放回Redis
+  * 3. 把資料x 放回Redis
   * 4. 回傳
-  * <font color="#ff0000">看起來很正常, 但在高流量下實際上必須要</font>
-  * 1. 從Redis 拿資料, 如有則直接回傳
-  * 2. **拿到資料x的鎖 (在離開時釋放)**
-  * 3. **再次從Redis 拿資料x, 如有則直接釋放**
+  * <font color="#ff0000">看起來很正常, 但在高流量下實際上必須要</font>
+  * 1. 從Redis 拿資料, 如有則直接回傳
+  * 2. **拿到資料x的鎖 (在離開時釋放)**
+  * 3. **再次從Redis 拿資料x, 如有則直接釋放**
   * 4. 從主資料拿資料X
-  * 5. 把資料x 放回Redis
+  * 5. 把資料x 放回Redis
   * 6. 回傳    
 
-- 沒使用consistency hash
-  * 別使用mod來決定某一key value 位置, 用這方法, 當系統繁忙要加開redis時, 會讓caching 全滅
+- 沒使用consistency hash
+  * 別使用mod來決定某一key value 位置, 用這方法, 當系統繁忙要加開redis時, 會讓caching 全滅
   * 使用 consistent hash
-- 沒對hot data預熱
-  * 所某一排行榜需5s 才能生產出來, 一旦cache miss, 一堆人需要等待這份資料 => slow
-  * 寫一個 crontab, 在cache miss前到DB先拿資料放到redis
-- 沒設定合理的TTL
-  * 瘋狂的TTL, 最終會讓redis 存太多過期資料, 觸發cache eviction
-  * 在 peak hour 的寫入觸發, 須先清出空間才能寫入, 引發超高latency
+- 沒對hot data預熱
+  * 所某一排行榜需5s 才能生產出來, 一旦cache miss, 一堆人需要等待這份資料 => slow
+  * 寫一個 crontab, 在cache miss前到DB先拿資料放到redis
+- 沒設定合理的TTL
+  * 瘋狂的TTL, 最終會讓redis 存太多過期資料, 觸發cache eviction
+  * 在 peak hour 的寫入觸發, 須先清出空間才能寫入, 引發超高latency
 
-**把Redis 當成簡陋版 lock server**
-- 專業應用 => Zookeeper / etcd
+**把Redis 當成簡陋版 lock server**
+- 專業應用 => Zookeeper / etcd
 
-**Anti-pattern: Barrier**
-- 用在 Redis 會害你失掉system robustness
+**Anti-pattern: Barrier**
+- 用在 Redis 會害你失掉system robustness
 
 **Barrier vs lock**
 - 雖然兩者都適用SETNX, 目的完全不同
