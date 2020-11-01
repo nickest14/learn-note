@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style type="text/css">
+        .box {
+            width: 960px;
+            height: 800px;
+            border: 6px solid #f60;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            flex-direction: row;
+            align-items: flex-start;
+            align-content: center;
+        }
+
+        .item {
+            width: 200px;
+            /* height: 100px; */
+            font-size: 16px;
+            /* margin: 10px; */
+            /* flex-basis: 200px; */
+            /* flex-shrink: 1; */
+        }
+
+        .item1 {
+            background-color: #fa0;
+            flex-grow: 4;
+        }
+
+        .item2 {
+            background-color: #afa;
+            flex-grow: 1;
+        }
+
+        .item3 {
+            background-color: #aaf;
+            flex-grow: 1;
+        }
+
+        .item4 {
+            background-color: #faa;
+        }
+
+        .item5 {
+            background-color: #ffa;
+        }
+
+        .item6 {
+            background-color: #6af;
+        }
+
+        .box2 {
+            margin: 30px 0px;
+            width: 960px;
+            height: 800px;
+            border: 6px solid #f60;
+            display: flex;
+            justify-content: center;
+            /* flex-wrap: wrap; */
+            flex-direction: column-reverse;
+            align-items: center;
+            align-content: center;
+        }
+
+        .box2-item {
+            width: 200px;
+            height: 200px;
+            font-size: 16px;
+            /* margin: 10px */
+        }
+
+        .test-self {
+            align-self: flex-start;
+        }
+    </style>
+</head>
+
+<body>
+    <div class='box'>
+        <div class="item item1">1 Lorem, ipsux alias, illum ob dicta magnam voluptas sequi architecto fuga non? Numquam.
+        </div>
+        <div class="item item2">2 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa quis excepturi quia
+            velit eveniet facere maiores aliquid, quod minus provident modi, error ex quaerat dignissimos unde eligendi
+            quas totam harum!</div>
+        <div class="item item3">3 Lorem ipsum dolor sit, amet consectetur adipisicing elit. Incidunt optio possimus
+            facilis natus aperiam quod consequuntur ipsum eos numquam magnam quas perspiciatis corporis quidem excepturi
+            saepe est rerum, perferendis laboriosam?</div>
+        <!-- <div class="item item4">4 Lorem onsre totamebitis fuga consectetur porro commodi aliquam unde expedita, cum ad
+            repellat harum minus, reprehenderit odio maiores?</div>
+        <div class="item item5">5 Lorem ipsum, dolor sit amet consectetur adipisicing elit. Doloribus, voluptate fugit,
+            vel dolores reprehenderit molestias voluptatum, vitae blanditiis nam laborum sequi natus deserunt sit
+            accusamus dolorum! Aspernatur error sapiente beatae.</div>
+        <div class="item item6">6 Lorem ipsum dolor niam omnis nulla aliquam commodi qui sed optio sunt illum eos
+            nostrum velit ut, deserunt obcaecati temporibus reprehenderit!</div> -->
+    </div>
+
+    <div class='box2'>
+        <div class="box2-item item1">1 Lorem, ipsux alias, illum ob dicta magnam voluptas sequi architecto fuga non?
+            Numquam.</div>
+        <div class="box2-item item2 test-self">2 Lorem ipsetur adipisicing elit. Culpa quis excepturi quia velit
+            eveniet facere maiores aliquid, quod minus provident modi, error ex quaerat dignissimos undeam harum!</div>
+        <div class="box2-item item3">3 Lorem iio possimus facilis natus aperiam quod consequuntur ipsum eos numquam
+            magnam quas perspiciatis corporis quidem exceum,?</div>
+        <!-- <div class="box2-item item4">4 Lorem onsre totamebitis fuga consectetur porro commodi aliquam unde expedita, cum ad repellat harum minus, reprehenderit odio maiores?</div>
+        <div class="box2-item item5">5 Lorem ipsum, dolor sit amet consectetur adipisicing elit. Doloribus, voluptate fugit, vel dolores reprehenderit molestias voluptatum, vitae blanditiis nam laborum sequi natus deserunt sit accusamus dolorum! Aspernatur error sapiente beatae.</div>
+        <div class="box2-item item6">6 Lorem ipsum dolor niam omnis nulla aliquam commodi qui sed optio sunt illum eos nostrum velit ut, deserunt obcaecati temporibus reprehenderit!</div> -->
+    </div>
+
+</body>
+
+</html>
