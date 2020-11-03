@@ -4,17 +4,21 @@
 
 <hr>
 
-##### Linux 指令
-```
-mkdir: 創建資料夾, 若帶 -p 參數, 要建立的目錄已經存在時, 就不會報錯
+#### Linux 指令
 
+- mkdir: 創建資料夾, 若帶 -p 參數, 要建立的目錄已經存在時, 就不會報錯
+
+- find: 找尋檔案, 也可以搜尋特定類型, d 目錄; f 一般檔案;
+  * example: find .  -type f -name nginx.service
+
+```
 &: 如果在指令後面加上 &, 即表示指令在背景執行, 例如 script.sh &
 &&: 用於分開兩個指令, 即第一道指令執行成功後, 才會執行第二道指令, 例如 mkdir dir && cd dir
 |: 管線的符號, 將前一道指令的輸出, 作為第二道指令的輸入, 例如 kgp | grep redis
 ||: 表示前一道指令執行失敗後, 才會執行下一道指令, 例如 cat test.py || echo 'No file'
 ```
 
-##### Linux user group 相關
+#### Linux user group 相關
 ```
 // 新建 group
 groupadd {group}
