@@ -18,6 +18,12 @@
 ||: 表示前一道指令執行失敗後, 才會執行下一道指令, 例如 cat test.py || echo 'No file'
 ```
 
+- df: 查看 linux 硬碟使用量, -h, --human-readable 以 K, M, G 為計量單位
+- du: 查看當前目錄底下資料夾或檔案大小; -h, --human-readable; -d 1 指只找第一層的資料夾
+
+- `sudo apt-get clean`
+  * 清理 apt cache 來釋放硬碟空間
+
 #### Linux user group 相關
 ```
 // 新建 group
@@ -37,7 +43,7 @@ groups {user}
 可至 /home/{user}/.ssh 資料夾底下增加 authorized_keys 檔案,
 內容為 xxx.pub, ex: ssh-rsa AAAAXXXXXXXXXXXXXB3TZTu1TNM6fPulE= devops@gmail.com
 
-之後即可帶著 private key 連線進去: ssh -i files/keys/devops  {user}@{ip}
+之後即可帶著 private key 連線進去: ssh -i files/keys/devops {user}@{ip}
 ```
 
 ##### shell redirect 相關
