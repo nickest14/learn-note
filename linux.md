@@ -24,6 +24,11 @@
 - `sudo apt-get clean`
   * 清理 apt cache 來釋放硬碟空間
 
+- sed: 將每一行資料進行取代, 刪除, 新增及修改特定行等功能
+  * `sed -i 's/\/\:/ok/' swagger.yaml` 將每行有 '/:' 的修改成 'ok', \為跳脫字元
+  * [參考範例](https://idobest.pixnet.net/blog/post/22039536)
+  * [參考範例2](https://segmentfault.com/a/1190000020613397)
+
 #### Linux user group 相關
 ```
 // 新建 group
