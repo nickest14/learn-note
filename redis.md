@@ -15,7 +15,7 @@
   * 資料庫能用極短時間完成單一工作
 - 以上兩者最多只能要一個
 - Redis 是追求 Low latency, 想單用redis zero data loss, <font color=#ff0000> impossible </font>
-#### Redis 的預設, 是每一萬個 write 才會寫入 hardisk , 若 redis 當機,一定會有 data loss 的  
+#### Redis 的預設, 是每一萬個 write 才會寫入 hardisk , 若 redis 當機,一定會有 data loss 的
 - 使用 Redis, 用作caching, 資料同時存放於主資料庫
 - 儲存沒了也死不了的 Hot Data
 
@@ -42,7 +42,7 @@
   * 3. **再次從Redis 拿資料x, 如有則直接釋放**
   * 4. 從主資料拿資料X
   * 5. 把資料x 放回Redis
-  * 6. 回傳    
+  * 6. 回傳
 
 - 沒使用consistency hash
   * 別使用mod來決定某一key value 位置, 用這方法, 當系統繁忙要加開redis時, 會讓caching 全滅
@@ -80,4 +80,31 @@
 - <font color="#ff0000">Snapshotting with redis V2</font>
   - 若資料長期沒有更動, V1只會建立大量重複的snapshots, 如果一份snapshots 跟之前相同, 他只需把該ts存起來, 而不用存相同的資料
 - snapshot 是永遠不會改動的資料, 其localcache TTL 應跟 Redis 相同
+
+<hr>
+
+```
+redis-cli 進入指令模式
+
+# 查看有哪些 redis db
+INFO KEYSPACE
+=> # Keyspace
+db0:keys=1,expires=0,avg_ttl=0
+db1:keys=92,expires=22,avg_ttl=31796930
+
+# 看所有 database, key 的數量
+info
+
+# 看當前 database, key 的數量
+dbsize
+
+# 切換DB
+SELECT 1
+
+# 列出keys
+KEYS *
+
+#清掉redis db資料
+FLUSHDB
+```
 
