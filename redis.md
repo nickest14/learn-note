@@ -84,7 +84,7 @@
 <hr>
 
 ```
-redis-cli 進入指令模式
+** redis-cli 進入指令模式
 
 # 查看有哪些 redis db
 INFO KEYSPACE
@@ -108,3 +108,29 @@ KEYS *
 FLUSHDB
 ```
 
+### Redis master-slave related
+```
+# 26379 為 sentinel port
+redis-cli -h {host} -p 26379
+
+* 連線至 redis sentinel 後, 可以使用以下指令
+
+# 取得 master info
+SENTINEL masters
+
+# 取得 master ip 及 port
+SENTINEL get-master-addr-by-name {masterSet}
+
+# 強迫觸發一次 failover
+SENTINEL failover mymaster
+```
+
+```
+** redis-cluster
+
+# 確認 cluster 的狀態
+cluster info
+
+# 確認 cluster 現在的 node, 每個 node 的 role 以及分配的 slot
+cluster nodes
+```

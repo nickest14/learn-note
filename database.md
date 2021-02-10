@@ -27,7 +27,7 @@
 * 確保所建構的索引會被使用
 
 
-#### 沒有寫好 where 句子是低效能查詢的主因 
+#### 沒有寫好 where 句子是低效能查詢的主因
 * WHERE 及 SELECT 句子中的欄是否有索引會影響查詢的效能
 * 兩個資料表的欄是否有索引會影響連接的效能
 * 索引會影響order by 句子的效能
@@ -42,7 +42,7 @@
 * 過濾索引可用於避免排序操作
 * 分割資料表可提供類似過濾索引無需維護其他索引的好處
 
-#### 宣告約束代替程式檢查 
+#### 宣告約束代替程式檢查
 * 考慮使用約束藍強制資料完整性
 * 查詢最佳化程序可使用約束定義建構高效能的查詢執行計畫
 #### 資料表的索引越多, 更新的速度會越慢
@@ -123,7 +123,7 @@
 ## 子查詢
 #### 認識何時可以使用子查詢
 * 可以在使用資料表或檢視表名稱或回傳資料表的函示或程序的地方使用資料表子查詢
-* 可以在使用資料表子查詢與需要產生清單給 IN 或 NOT IN 述詞的地方使用回傳單欄的資料表子查詢 
+* 可以在使用資料表子查詢與需要產生清單給 IN 或 NOT IN 述詞的地方使用回傳單欄的資料表子查詢
 * 純料子查詢可用於使用欄名稱的地方--SELECT 清單、SELECT清單中的表示式, 或作為比較述詞的一部分
 
 #### 關聯子查詢
@@ -141,6 +141,18 @@
 * 閱讀執行計畫時, 將他轉換成實際動作, 分析是否有索引沒用到並判斷為何不用
 * 分析個別步驟並研判是否有效率。 注意效率受資料分布影響。 因此沒有所謂的'壞'操作。 相對的, 分析操作是否適合該查詢
 * 不要因為一個查詢就加上索引來改善執行計畫, 必須從資料庫做全盤考慮以確保索引盡可能的通用
-* 注意'大與小'狀況, 分佈不均的資料對同一個查詢會需要布農的最佳化, 
+* 注意'大與小'狀況, 分佈不均的資料對同一個查詢會需要布農的最佳化,
 <font color="#cccㄑ">深红色文字</font>
 
+
+=====================
+
+aggregation: Look at many rows and calculate as a single value.
+grouping: Reduce many rows down to fewer rows
+
+union: Join together the results of two queries and remove duplicate rows.
+union all: Join together results of two queries.
+intersect: Find the rows common in the results of two queries. Remove duplicates.
+intersect all: Find the rows common in the results of two queries.
+except: Find the rows that are present in first query but not in second query. Remove duplicates.
+except all: Find the rows that are present in first query but not in second query.
